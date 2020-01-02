@@ -22,13 +22,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/哈哈" />
-
+        <!--            android:rotation="90"-->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="426dp"
-            android:layout_height="520dp"
+            android:layout_height="440dp"
             android:contentDescription="@string/嘿"
-            android:rotation="90"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/img1" />
     </LinearLayout>

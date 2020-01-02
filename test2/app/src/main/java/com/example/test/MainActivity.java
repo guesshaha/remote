@@ -3,6 +3,9 @@ package com.example.test;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView text1=(TextView) findViewById(R.id.text1);
 
-                if(text1.getText().toString()=="Hello World!"){
+                if(text1.getText().toString().equals("Hello World!")){
                     text1.setText("fuck");
                     convernomal();
                 }else{
@@ -62,12 +65,25 @@ public class MainActivity extends AppCompatActivity {
         ImageView img2=new ImageView(this);
         ImageView img1=(ImageView) findViewById(R.id.imageView);
         Bitmap bmp= ((BitmapDrawable)img1.getDrawable()).getBitmap();
-        Utils.bitmapToMat(bmp, src);
+
+        //1.创建一个与原图大小一致的拷贝，相当于创建了一张与原图大小一致的白纸
+        Bitmap bmCopy = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+
+        //2.创建画笔
+        Paint paint = new Paint();
+
+        //3.创建画板，然后把白纸铺在画板上
+        Canvas canvas = new Canvas(bmCopy);
+
+        //4.开始作画
+        canvas.drawBitmap(bmp, new Matrix(), paint);
+
+        Utils.bitmapToMat(bmCopy, src);
         Imgproc.cvtColor(src, temp, Imgproc.COLOR_BGRA2BGR);
         Log.i("CV", "image type:" + (temp.type() == CvType.CV_8UC3));
         Imgproc.cvtColor(temp, dst, Imgproc.COLOR_BGR2GRAY);
-        Utils.matToBitmap(dst, bmp);
-        img1.setImageBitmap(bmp);
+        Utils.matToBitmap(dst, bmCopy);
+        img1.setImageBitmap(bmCopy);
     }
 
     private void convernomal() {
