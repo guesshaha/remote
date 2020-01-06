@@ -26,10 +26,17 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="426dp"
-            android:layout_height="440dp"
+            android:layout_height="316dp"
             android:contentDescription="@string/嘿"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/img1" />
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:accessibilityHeading="false"
+            android:visibility="visible" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
